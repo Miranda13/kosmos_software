@@ -198,7 +198,7 @@ function createFormRow(container, sectionKey, label, value) {
   const inputCell = document.createElement("td");
   let inputElement;
 
-  if (label === "direction" || label === "tide" || label === "moon") {
+  if (label === "direction" || label === "tide" || label === "moon" || label === "seaState") {
     inputElement = document.createElement("select");
     inputElement.setAttribute("id", label);
     initializeChoices(inputElement, getChoicesForField(label));
@@ -220,14 +220,14 @@ function createFormRow(container, sectionKey, label, value) {
 function getChoicesForField(field) {
   const choicesData = {
     direction: [
-      { value: "N", label: "N" },
-      { value: "NE", label: "NE" },
-      { value: "NO", label: "NO" },
-      { value: "S", label: "S" },
-      { value: "SE", label: "SE" },
-      { value: "SO", label: "SO" },
-      { value: "E", label: "E" },
-      { value: "O", label: "O" },
+      { value: "N", label: "N : Nord" },
+      { value: "NE", label: "NE : Nord-Est" },
+      { value: "NO", label: "NO : Nord-Ouest" },
+      { value: "S", label: "S : Sud" },
+      { value: "SE", label: "SE : Sud-Est" },
+      { value: "SO", label: "SO : Sud-Ouest" },
+      { value: "E", label: "E : Est" },
+      { value: "O", label: "O : Ouest" },
     ],
     tide: [
       { value: "BM", label: "BM (Low Tide)" },
@@ -246,6 +246,17 @@ function getChoicesForField(field) {
       { value: "GD", label: "GD : Gibbeuse Décroissante (Waning Gibbous)" },
       { value: "DQ", label: "DQ : Dernier Quartier (Last Quarter)" },
       { value: "DC", label: "DC : Dernier Croissant (Waning Crescent)" },
+    ],
+    seaState: [
+        {value: "Calme", label: "Calme"},
+        {value: "Ridée", label: "Ridée"},
+        {value: "Belle", label: "Belle"},
+        {value: "Peu agitée", label: "Peu agitée"},
+        {value: "Agitée", label: "Agitée"},
+        {value: "Forte", label: "Forte"},
+        {value: "Grosse", label: "Grosse"},
+        {value: "Très grosse", label: "Très grosse"},
+        {value: "Énorme", label: "Énorme"},
     ],
   };
   return choicesData[field] || [];
