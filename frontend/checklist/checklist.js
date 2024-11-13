@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
   resetButton.setAttribute("type", "reset");
   resetButton.textContent = "Reset";
   resetButton.addEventListener("click", function () {
-    localStorage.clear();
+    localStorage.setItem("materials", JSON.stringify([]));
     materialsChose = [];
   });
   list.appendChild(resetButton);

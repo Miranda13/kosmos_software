@@ -248,16 +248,16 @@ function getChoicesForField(field) {
       { value: "DC", label: "DC : Dernier Croissant (Waning Crescent)" },
     ],
     seaState: [
-        {value: "Calme", label: "Calme"},
-        {value: "Ridée", label: "Ridée"},
-        {value: "Belle", label: "Belle"},
-        {value: "Peu agitée", label: "Peu agitée"},
-        {value: "Agitée", label: "Agitée"},
-        {value: "Forte", label: "Forte"},
-        {value: "Grosse", label: "Grosse"},
-        {value: "Très grosse", label: "Très grosse"},
-        {value: "Énorme", label: "Énorme"},
-    ],
+      { value: "Calm", label: "Calme" },
+      { value: "Rippled", label: "Ridée" },
+      { value: "Smooth", label: "Belle" },
+      { value: "Slight", label: "Peu agitée" },
+      { value: "Moderate", label: "Agitée" },
+      { value: "Rough", label: "Forte" },
+      { value: "Very rough", label: "Grosse" },
+      { value: "High", label: "Très grosse" },
+      { value: "Phenomenal", label: "Énorme" },
+    ],  
   };
   return choicesData[field] || [];
 }

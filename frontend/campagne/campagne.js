@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("campaignForm");
 
     const fields = [
-        { id: "campaign", placeholder: "ATL", type: "text", label: "Campaign", tabIndex: 1, tabIndex: 8, isCampaign: true },
+        { id: "campaign", placeholder: "Sélectionnez un campagne", type: "text", label: "Campaign", tabIndex: 1, tabIndex: 8, isCampaign: true },
         { id: "locality", placeholder: "Illien", type: "text", label: "Location", tabIndex: 2, maxlength: "100" },
         { id: "protection", placeholder: "Parc naturel marin d'iroise", type: "text", label: "Protection", tabIndex: 3, maxlength: "100" },
         { id: "boat", placeholder: "Beneteau Capelan", type: "text", label: "Boat", tabIndex: 4, maxlength: "100" },
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         {code: "IND", name: "Indien"},
         {code: "MED", name: "Méditerranée"},
         {code: "PAC", name: "Pacifique"}
+    ]
 
     const zoneOptions = [
         { code: "AC", name: "Arcachon" },
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
             const defaultOption = document.createElement("option");
             defaultOption.value = "";
-            defaultOption.textContent = "Select a zone";
+            defaultOption.textContent = field.placeholder;
             select.appendChild(defaultOption);
         
             campaignOptions.forEach(option => {
@@ -111,8 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 shouldSort: false,
                 duplicateItemsAllowed: false,
             }); 
-        }else {
-            form.appendChild(input);
         }
 
         if (field.isZone) {
@@ -123,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
             const defaultOption = document.createElement("option");
             defaultOption.value = "";
-            defaultOption.textContent = "Select a zone";
+            defaultOption.textContent = field.placeholder;
             select.appendChild(defaultOption);
         
             zoneOptions.forEach(option => {
@@ -141,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 shouldSort: false,
                 duplicateItemsAllowed: false,
             }); 
-        } else {
+        } else if (!field.isCampaign && !field.isZone) {
             form.appendChild(input);
         }        
     });
