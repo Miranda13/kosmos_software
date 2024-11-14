@@ -207,6 +207,10 @@ function createFormRow(container, sectionKey, label, value) {
     inputElement = document.createElement("input");
     inputElement.setAttribute("id", label);
     inputElement.type = determineInputType(value);
+    if(inputElement.type === "number"){
+      inputElement.setAttribute("step", "0.00001");
+      inputElement.setAttribute("oninput", "verifierFloat(this)");
+    }
     inputElement.value = value;
   }
 
@@ -266,6 +270,17 @@ function determineInputType(value) {
   return typeof value === "number" ? "number" : "text";
 }
 
+function verifierFloat(input) {
+  const maxDecimals = 5;
+  if (!input.checkValidity()) {
+    let valeurFloat = parseFloat(input.value);
+
+    if (!isNaN(valeurFloat)) {
+      input.value = valeurFloat.toFixed(maxDecimals);
+    }
+  } 
+}
+
 function formatTime(timeDict) {
   const { heure, minute, second } = timeDict;
   return `${String(heure).padStart(2, '0')}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`;
@@ -277,12 +292,12 @@ const limits = {
   "longitude": {"min": -180, "max": 180},
   "coefficient": {"min": 20, "max": 120},
   "wind": {"min": 0, "max": 12},
-  "Depth": {"min": 0, "max": 4000},
-  "Temperature": {"min": -10, "max": 40},
-  "Salinity": {"min": 0, "max": 50},
-  "AtmPressure": {"min": 900, "max": 1100},
-  "AirTemp": {"min": -90, "max": 90} ,
-  "Swell": {"min": 0, "max": 30} 
+  "depth": {"min": 0, "max": 4000},
+  "temperature": {"min": -10, "max": 40},
+  "salinity": {"min": 0, "max": 50},
+  "atmPressure": {"min": 900, "max": 1100},
+  "airTemp": {"min": -90, "max": 90} ,
+  "swell": {"min": 0, "max": 30} 
 }
 
 function validateField(type, key, subKey, value) {
@@ -356,24 +371,33 @@ async function submitForm(event) {
   }
 
   //formData["campagne"] = JSON.parse(localStorage.getItem("campagneData"));
-  
-  const response = await fetch("", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
-
-  if (response.ok) {
-    Swal.fire({
-      title: 'Success',
-      text: 'Information saved',
-      icon: 'success',
-      confirmButtonText: 'OK'
+  try {
+    const response = await fetch("", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
     });
-    window.location.href = "../index.html";
-  } else {
+  
+    if (response.ok) {
+      Swal.fire({
+        title: 'Success',
+        text: 'Information saved',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+      window.location.href = "../index.html";
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Error occuring while sending data. Retry',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+  } catch (e) {
     Swal.fire({
       title: 'Error',
       text: 'Error occuring while sending data. Retry',
@@ -382,6 +406,7 @@ async function submitForm(event) {
     });
     return;
   }
+  
 }
 
 document.addEventListener("DOMContentLoaded", generateTable);
