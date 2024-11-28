@@ -11,12 +11,12 @@ import pandas as pd
 
 
 #Arborescence USB
-USB_ROOT_PATH = "/media/"+(os.listdir("/home")[0])
+USB_ROOT_PATH = "/media/"+(os.listdir("/home")[1])
 USB_NAME = os.listdir(USB_ROOT_PATH)[0]
 USB_INSIDE_PATH = USB_ROOT_PATH+"/"+USB_NAME+"/"
 
 # Arborescence Picam
-ROOT_PATH = "/home/"+os.listdir("/home")[0]+"/"
+ROOT_PATH = "/home/"+os.listdir("/home")[1]+"/"
 LOG_PATH = ROOT_PATH+"logfile_kosmos/"
 GIT_PATH = ROOT_PATH+"kosmos_software/"
 WORK_PATH = GIT_PATH+"kosmosV3-env/"
@@ -25,7 +25,7 @@ WORK_PATH = GIT_PATH+"kosmosV3-env/"
 CONF_FILE_TEMPLATE = "kosmos_config_template.ini"
 CONF_FILE = "kosmos_config.ini"
 CONFIG_SECTION = "KOSMOS-config"
-CAMPAGNE_SECTION = "KOSMOS-campagne"
+CAMPAIGN_SECTION = "KOSMOS-campagne"
 DEBUG_SECTION = "KOSMOS-debug"
 
 # Section video
@@ -61,14 +61,14 @@ class KosmosConfig:
         # bloc normalement non lu car fait normalement durant l'installation install.sh
         logging.debug("Lecture kosmos_system.ini")        
         subprocess.run(["sudo", "cp", "-n", GIT_PATH+SYSTEM_FILE_TEMPLATE,ROOT_PATH+SYSTEM_FILE])
-        subprocess.run(["sudo", "chown", os.listdir("/home")[0]+":"+os.listdir("/home")[0] , ROOT_PATH+SYSTEM_FILE])
+        subprocess.run(["sudo", "chown", os.listdir("/home")[1]+":"+os.listdir("/home")[1] , ROOT_PATH+SYSTEM_FILE])
         self._system_path=ROOT_PATH+SYSTEM_FILE
         self.system = configparser.ConfigParser()
         self.system.read(self._system_path)
         logging.info("kosmos_system.ini lu dans home")
                
         # Création Dossier Campagne si non existant               
-        campagneFile = self.get_date_YMD() + '_' + self.system.get(SYSTEM_SECTION,"system") + '_' + self.config.get(CAMPAGNE_SECTION,"campagne") + '_' + self.config.get(CAMPAGNE_SECTION,"zone") 
+        campagneFile = self.get_date_YMD() + '_' + self.system.get(SYSTEM_SECTION,"system") + '_' + self.config.get(CAMPAIGN_SECTION,"campagne") + '_' + self.config.get(CAMPAIGN_SECTION,"zone") 
         os.chdir(USB_INSIDE_PATH)            
         if not os.path.exists(campagneFile):
             os.mkdir(campagneFile)

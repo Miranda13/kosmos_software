@@ -371,16 +371,13 @@ async function submitForm(event) {
   }
 
   //formData["campagne"] = JSON.parse(localStorage.getItem("campagneData"));
-  //localStorage.setItem('video', JSON.stringify(formData));
-  dataCampain = localStorage.getItem("campagneData");
-
   try {
-    const response = await fetch(serverUrl + "/getMetadata", {
+    const response = await fetch("", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({'campaign' : dataCampain, 'video' : formData}),
+      body: JSON.stringify(formData),
     });
   
     if (response.ok) {

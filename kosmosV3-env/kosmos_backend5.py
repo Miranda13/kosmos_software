@@ -34,6 +34,7 @@ class Server:
         self.app.add_url_rule("/changeCampagne", view_func=self.changeCampagne,methods=['POST'])
         self.app.add_url_rule("/getCampagne", view_func=self.getCampagne)
         self.app.add_url_rule("/frame", view_func=self.image)
+        self.app.add_url_rule("/getMedatada", view_func=self.getMetadata, methods=['POST'])
         
 
     def run(self) :
@@ -98,7 +99,7 @@ class Server:
             data = request.json
             for key in data:
                 #self.myMain._conf.set_val(key,data[key])
-                self.myMain._conf.config.set(CAMPAGNE_SECTION,key,data[key])
+                self.myMain._conf.config.set(CAMPAIGN_SECTION,key,data[key])
             self.myMain._conf.update_config()
             self.myMain.thread_camera.closeCam()
             
@@ -130,7 +131,7 @@ class Server:
         
     def getCampagne(self):
         response=dict()        
-        response["data"] = dict(self.myMain._conf.config[CAMPAGNE_SECTION])
+        response["data"] = dict(self.myMain._conf.config[CAMPAIGN_SECTION])
         response["status"]="ok"
         return response
     
@@ -214,7 +215,31 @@ class Server:
         return response    
 
 
-    def get_metadata(self):
+    def getMetadata(self):
+        
+        try:
+            # Récupérer les données envoyées dans le body de la requête
+            data = request.get_json()
+            campaign = data.get('campaign')
+            video = data.get('video')
+
+            # Afficher les données dans la console
+            print(f"Campaign: {campaign}")
+            print(f"Video: {video}")
+
+            # Retourner une réponse au frontend
+            return {
+                "status" : "ok"
+            }
+
+        except Exception as e:
+            print(f"Error: {e}")
+            return {
+                "status" : "error"
+            }
+
+
+        """
         metadata_path = GIT_PATH + "infoStationTemplate.json"
         
         try:
@@ -233,7 +258,9 @@ class Server:
                 "data": "" 
             })
 
-    
+        """
+
+    """
     def update_metadata(self):
         metadata_path = GIT_PATH + "infoStationTemplate.json"
         data = request.json 
@@ -251,3 +278,6 @@ class Server:
                 "status": "error",
                 "message": f"Failed to save metadata: {str(e)}"
             })
+    """
+
+
