@@ -13,10 +13,21 @@ const startLiveButton = document.getElementById("startLive");
 const stopLiveButton = document.getElementById("stopLive");
 const shutdownButton = document.getElementById("shutdown");
 
-// Initial setup: disable stop buttons and enable shutdown
-stopButton.disabled = true;
-stopLiveButton.disabled = true;
-shutdownButton.disabled = false;
+// Getting the current state of the camera
+const state = document.getElementById("etat").textContent;
+
+// Initial setup: 
+if (state == "WORKING") {
+  // if the camera is filming, disable all buttons but stop
+  disableAllButtons();
+  stopButton.disabled = false;
+} else {
+  // disable stop buttons and enable shutdown if not
+  stopButton.disabled = true;
+  stopLi
+  veButton.disabled = true;
+  shutdownButton.disabled = false;
+}
 
 // Function to send a start request to the server
 async function start() {
