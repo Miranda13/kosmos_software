@@ -19,8 +19,8 @@ sudo chown $USER:$USER /home/$USER/kosmos_system.ini
 cd /home/kosmos/kosmos_software
 
 mkdir libs
-mkdir libs\choices
-mkdir libs\sweetAlert
+mkdir libs/choices
+mkdir libs/sweetAlert
 
 curl -o libs/sweetAlert/sweetalert2.min.js https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js
 curl -o libs/sweetAlert/sweetalert2.min.css https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css
