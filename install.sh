@@ -16,11 +16,11 @@ sudo cp -n /home/$USER/kosmos_software/kosmos_system_template.ini /home/$USER/ko
 sudo chown $USER:$USER /home/$USER/kosmos_system.ini
 
 # Installation des libraries externes
-cd /home/kosmos/kosmos_software
+cd /home/$USER/kosmos_software
 
-mkdir libs
-mkdir libs/choices
-mkdir libs/sweetAlert
+sudo mkdir libs
+sudo mkdir libs/choices
+sudo mkdir libs/sweetAlert
 
 curl -o libs/sweetAlert/sweetalert2.min.js https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js
 curl -o libs/sweetAlert/sweetalert2.min.css https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css
@@ -28,7 +28,7 @@ curl -o libs/sweetAlert/sweetalert2.min.css https://cdn.jsdelivr.net/npm/sweetal
 curl -o libs/choices/choices.min.js https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js
 curl -o libs/choices/choices.min.css https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css
 
-echo Download had finished.
+echo "[+] Téléchargement des libraries externes fait"
 
 #Creation du fichier de lancement
 cd
