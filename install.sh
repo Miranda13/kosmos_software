@@ -16,7 +16,7 @@ sudo cp -n /home/$USER/kosmos_software/kosmos_system_template.ini /home/$USER/ko
 sudo chown $USER:$USER /home/$USER/kosmos_system.ini
 
 # Installation des libraries externes
-cd /home/$USER/kosmos_software
+cd /home/$USER/kosmos_software/frontend
 
 sudo mkdir libs
 sudo mkdir libs/choices
